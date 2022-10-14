@@ -60,5 +60,9 @@ define LINK_LOCAL
 	$(PIP) install -e src/$1
 endef
 
-link-local:
+link-core:
+	echo "0.0.0" > src/core/VERSION
 	$(call LINK_LOCAL,core)
+
+test: link-core ### Runs the tests
+	$(PYTHON) -m pytest src/core

@@ -43,3 +43,6 @@ jobs:
 
     - name: Lint
       run: make lint PYTHON=$PYTHON
+
+    - name: Test
+      run: make test PYTHON=$PYTHON
