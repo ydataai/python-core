@@ -14,8 +14,9 @@ class FabricError(Exception):
   name: Optional[str]
   return_value: int
 
-  def __init__(self, context: Optional[dict] = None, name: Optional[str] = None):
+  def __init__(self, context: Optional[dict] = None, http_code: Optional[int] = None, name: Optional[str] = None):
     self.context = context
+    self.http_code = http_code
     self.name = name
 
   def __iter__(self):
@@ -23,8 +24,8 @@ class FabricError(Exception):
       "context": self.context,
       "name": self.name if self.name else self.__class__.__name__,
       "description": self.description,
-      "http_code": self.http_code if self.http_code else None,
-      "returnValue": self.return_value
+      "http_code": self.http_code,
+      "return_value": self.return_value
     }.items()
 
   def __str__(self) -> str:
