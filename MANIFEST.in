@@ -1,0 +1,6 @@
+include *.txt
+include *.md
+include VERSION
+
+exclude .gitignore
+exclude .releaserc.json
