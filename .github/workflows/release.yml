@@ -5,7 +5,6 @@ name: Releases
 on:
   release:
     types:
-    - prereleased
     - released
 
 

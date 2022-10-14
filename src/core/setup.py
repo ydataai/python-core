@@ -11,9 +11,9 @@ setup(name='ydata-core',
       author='YData',
       author_email='developers@ydata.ai',
       classifiers=[
-          'Intended Audience :: Developers',
-          'Programming Language :: Python :: 3 :: Only',
-          'Topic :: Software Development :: Libraries :: Python Modules'
+        'Intended Audience :: Developers',
+        'Programming Language :: Python :: 3 :: Only',
+        'Topic :: Software Development :: Libraries :: Python Modules'
       ],
       url='https://github.com/ydataai/python-core',
       packages=find_packages(exclude=['ydata', 'tests']),
