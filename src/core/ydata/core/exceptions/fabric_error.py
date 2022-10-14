@@ -7,7 +7,7 @@ def __camelcased(value: str) -> str:
     return c[0].lower() + c[1:]
 
 
-class BaseException(Exception):
+class FabricError(Exception):
     context: dict
     description: str
     http_code: int
@@ -34,4 +34,4 @@ class BaseException(Exception):
         return self.__str__()
 
     def json(self):
-        return json.dumps(error, default=lambda o: { __camelcased(k):v for k,v in dict(o).items() }, ensure_ascii=False)
+        return json.dumps(self, default=lambda o: { __camelcased(k):v for k,v in dict(o).items() }, ensure_ascii=False)

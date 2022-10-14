@@ -1,5 +1,5 @@
-from .base_exception import BaseException
+from .fabric_error import FabricError
 
 __all__ = [
-  "BaseException"
+  "FabricError"
 ]
