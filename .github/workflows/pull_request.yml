@@ -39,6 +39,10 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        python -m pip install -r requirements-dev.txt
 
     - name: Lint
       run: make lint PYTHON=$PYTHON
+
+    - name: Test
+      run: make test PYTHON=$PYTHON

@@ -1,0 +1,2 @@
+prospector==1.7.*
+pytest==7.1.*
