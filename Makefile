@@ -18,6 +18,7 @@ endif
 venv3: ### Creates a virtual environment for this project
 	test -d $(VENV) || python3.8 -m venv $(VENV)
 	$(PIP) install --upgrade pip wheel setuptools twine
+	$(PIP) install -r requirements-dev.txt
 
 clean: clean-build clean-pyc ### Cleans artifacts
 
@@ -53,7 +54,7 @@ upload: ### Upload build package into pypi
 	$(call UPLOAD,core)
 
 lint: ### Run prospector
-	$(PYTHON) -m prospector src/dask
+	$(PYTHON) -m prospector src/core
 
 define LINK_LOCAL
 	$(PIP) install -e src/$1
