@@ -2,12 +2,16 @@ from pathlib import Path
 from setuptools import setup, find_packages
 
 here = Path(__file__).parent.resolve()
+root = here.parent.parent.resolve()
 
-version = (here / 'VERSION').read_text().rstrip("\n")
+long_description = (root / 'README.md').read_text(encoding='utf-8')
+version = (root / 'VERSION').read_text().rstrip("\n")
 
 setup(name='ydata-core',
       version=version,
       description='Core functionality for all python packages at YData',
+      long_description=long_description,
+      long_description_content_type='text/markdown',
       author='YData',
       author_email='developers@ydata.ai',
       classifiers=[
