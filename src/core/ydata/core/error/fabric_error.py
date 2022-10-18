@@ -1,3 +1,4 @@
+from __future__ import annotations
 import json
 from typing import Optional
 
@@ -8,13 +9,17 @@ def _camelcased(value: str) -> str:
 
 
 class FabricError(Exception):
-  context: Optional[dict]
+  context: Optional[dict[str, str]]
   description: str
   http_code: Optional[int]
   name: Optional[str]
   return_value: int
 
-  def __init__(self, context: Optional[dict] = None, http_code: Optional[int] = None, name: Optional[str] = None):
+  def __init__(
+      self,
+      context: Optional[dict[str, str]] = None,
+      http_code: Optional[int] = None,
+      name: Optional[str] = None):
     self.context = context
     self.http_code = http_code
     self.name = name
