@@ -11,7 +11,7 @@ def _camelcased(value: str) -> str:
 class FabricError(Exception):
   context: Optional[dict[str, str]]
   description: str
-  http_code: Optional[int]
+  http_code: int
   name: Optional[str]
   return_value: int
 
@@ -21,7 +21,8 @@ class FabricError(Exception):
       http_code: Optional[int] = None,
       name: Optional[str] = None):
     self.context = context
-    self.http_code = http_code
+    if http_code:
+      self.http_code = http_code
     self.name = name
 
   def __iter__(self):
@@ -36,7 +37,7 @@ class FabricError(Exception):
   def __str__(self) -> str:
     return f'''
       {self.__class__.__name__}(name={self.name}, context={self.context}, description={self.description}, \
-return_value={self.return_value})
+http_code={self.http_code}, return_value={self.return_value})
     '''
 
   def __repr__(self) -> str:
