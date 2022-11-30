@@ -56,13 +56,12 @@ jobs:
         repo-token: ${{ secrets.ACCESS_TOKEN }}
         release-tag: ${{ needs.prepare.outputs.version }}
 
-    - name: Upload package to pypi
-      uses: pypa/gh-action-pypi-publish@v1.5.1
+    - uses: pypa/gh-action-pypi-publish@v1.5.1
       with:
-        user: ${{ secrets.PRIVATE_PYPI_USERNAME }}
-        password: ${{ secrets.PRIVATE_PYPI_PASSWORD }}
-        repository_url: ${{ secrets.PRIVATE_PYPI_URL }}
+        user: __token__
+        password: ${{ secrets.PYPI_API_TOKEN }}
         packages_dir: '${{ env.ROOT_DIR }}/dist/'
+
 
 
   # update-dockerfiles:
