@@ -1,6 +1,7 @@
 from __future__ import annotations
 import json
 from typing import Optional
+from sys import getsizeof
 
 
 def _camelcased(value: str) -> str:
@@ -42,6 +43,17 @@ http_code={self.http_code}, return_value={self.return_value})
 
   def __repr__(self) -> str:
     return self.__str__()
+
+  def __sizeof__(self) -> int:
+    context_size = getsizeof(self.context) if self.context else 0
+    http_code_size = getsizeof(str(self.http_code)) if self.http_code else 0
+    return_value_size = getsizeof(str(self.return_value)) if self.return_value else 0
+
+    return context_size \
+      + getsizeof(self.description) \
+      + http_code_size \
+      + getsizeof(self.name) \
+      + return_value_size
 
   def json(self):
     return json.dumps(self, default=lambda o: {_camelcased(k): v for k, v in dict(o).items()}, ensure_ascii=False)
