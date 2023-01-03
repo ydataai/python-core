@@ -10,7 +10,7 @@ def _camelcased(value: str) -> str:
 
 
 class FabricError(Exception):
-  context: Optional[dict[str, str]]
+  context: Optional[dict[str, str]] = None
   description: str
   http_code: int = 500
   name: Optional[str]
