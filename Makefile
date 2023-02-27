@@ -36,7 +36,7 @@ clean-pyc: ### Removes python compiled bytecode files
 
 
 define BUILD
-	cd src/$1/ && rm -rf dist/ && $(PYTHON) setup.py sdist bdist_wheel
+	cd src/$1/ && rm -rf dist/ && $(PYTHON) setup.py bdist_wheel
 endef
 
 define INSTALL

@@ -47,7 +47,7 @@ jobs:
     - name: Build
       run: |
         echo "${{ needs.prepare.outputs.version }}" > VERSION
-        cd $ROOT_DIR && python setup.py sdist bdist_wheel
+        cd $ROOT_DIR && python setup.py bdist_wheel
 
     - name: Upload release assets
       uses: AButler/upload-release-assets@v2.0
@@ -59,9 +59,8 @@ jobs:
     - name: Upload package to pypi
       uses: pypa/gh-action-pypi-publish@v1.6.4
       with:
-        user: ${{ secrets.PRIVATE_PYPI_USERNAME }}
-        password: ${{ secrets.PRIVATE_PYPI_PASSWORD }}
-        repository_url: ${{ secrets.PRIVATE_PYPI_URL }}
+        user: __token__
+        password: ${{ secrets.PYPI_API_TOKEN }}
         packages_dir: '${{ env.ROOT_DIR }}/dist/'
 
 
