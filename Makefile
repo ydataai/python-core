@@ -47,14 +47,29 @@ define UPLOAD
 	cd src/$1/ && $(PYTHON) -m twine upload -r ydata dist/*
 endef
 
-build: ### Build package
+build-core:
 	$(call BUILD,core)
 
-upload: ### Upload build package into pypi
+build-datascience:
+	$(call BUILD,datascience)
+
+build-all: build-core build-datascience ### Build all packages
+
+upload-core:
 	$(call UPLOAD,core)
 
-lint: ### Run prospector
+upload-datascience:
+	$(call UPLOAD,datascience)
+
+upload-all: upload-core upload-datascience ### Upload all packages to pypi
+
+lint-core: ### Run prospector
 	$(PYTHON) -m prospector src/core
+
+lint-datascience: ### Run prospector
+	$(PYTHON) -m prospector src/datascience
+
+lint: lint-core lint-datascience ### Run prospector on all packages
 
 define LINK_LOCAL
 	$(PIP) install -e src/$1
@@ -64,5 +79,11 @@ link-core:
 	echo "0.0.0" > src/core/VERSION
 	$(call LINK_LOCAL,core)
 
-test: link-core ### Runs the tests
+link-datascience:
+	echo "0.0.0" > src/datascience/VERSION
+	$(call LINK_LOCAL,datascience)
+
+link-all: link-core link-datascience ### Link all packages
+
+test: link-all ### Runs the tests
 	$(PYTHON) -m pytest src/core
