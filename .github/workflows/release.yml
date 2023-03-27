@@ -23,8 +23,8 @@ jobs:
       run: echo ::set-output name=value::${GITHUB_REF#refs/*/}
 
 
-  build-upload:
-    name: Build and Upload
+  build-core:
+    name: Build core package
     runs-on: ubuntu-20.04
 
     needs:
@@ -47,7 +47,48 @@ jobs:
     - name: Build
       run: |
         echo "${{ needs.prepare.outputs.version }}" > VERSION
-        cd $ROOT_DIR && python setup.py bdist_wheel
+        make build-core PYTHON=python
+
+    - name: Upload release assets
+      uses: AButler/upload-release-assets@v2.0
+      with:
+        files: '${{ env.ROOT_DIR }}/dist/*'
+        repo-token: ${{ secrets.ACCESS_TOKEN }}
+        release-tag: ${{ needs.prepare.outputs.version }}
+
+    - name: Upload package to pypi
+      uses: pypa/gh-action-pypi-publish@v1.8.3
+      with:
+        user: __token__
+        password: ${{ secrets.PYPI_API_TOKEN }}
+        packages_dir: '${{ env.ROOT_DIR }}/dist/'
+
+
+  build-datascience:
+    name: Build datascience package
+    runs-on: ubuntu-20.04
+
+    needs:
+    - prepare
+
+    env:
+      ROOT_DIR: src/datascience
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
+
+    - name: Install build dependencies
+      run: python -m pip install --upgrade pip wheel
+
+    - name: Build
+      run: |
+        echo "${{ needs.prepare.outputs.version }}" > VERSION
+        make build-datascience PYTHON=python
 
     - name: Upload release assets
       uses: AButler/upload-release-assets@v2.0
