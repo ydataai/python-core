@@ -23,8 +23,8 @@ jobs:
     steps:
     - name: Version
       id: version
-      # run: echo ::set-output name=value::${GITHUB_REF#refs/*/}
-      run: echo ::set-output name=value::0.3.0
+      # run: echo "value=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+      run: echo "value=0.3.0" >> $GITHUB_OUTPUT
 
   build-packages:
     name: Build ${{ matrix.package }} package
@@ -54,6 +54,18 @@ jobs:
     - name: Build
       run: |
         make build-${{ matrix.package }} version=${{ needs.prepare.outputs.version }} PYTHON=python
+        echo ""
+        ls .
+        echo ""
+        ls dist/*
+
+    - name: Upload release assets
+      run: |
+        ls .
+        echo ""
+        ls ${{ env.ROOT_DIR }}
+        echo ""
+        ls ${{ env.ROOT_DIR }}/dist
 
     - name: Upload release assets
       uses: AButler/upload-release-assets@v2.0
