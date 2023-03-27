@@ -6,9 +6,6 @@ on:
   release:
     types:
     - released
-  pull_request:
-    branches:
-    - main
 
 
 
@@ -23,8 +20,8 @@ jobs:
     steps:
     - name: Version
       id: version
-      # run: echo "value=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
-      run: echo "value=0.3.0" >> $GITHUB_OUTPUT
+      run: echo "value=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+
 
   build-packages:
     name: Build ${{ matrix.package }} package
@@ -56,26 +53,18 @@ jobs:
         make build-${{ matrix.package }} version=${{ needs.prepare.outputs.version }} PYTHON=python
 
     - name: Upload release assets
-      run: |
-        ls .
-        echo ""
-        ls ${{ env.ROOT_DIR }}
-        echo ""
-        ls ${{ env.ROOT_DIR }}/dist
-
-    - name: Upload release assets
       uses: AButler/upload-release-assets@v2.0
       with:
         files: '${{ env.ROOT_DIR }}/dist/*'
         repo-token: ${{ secrets.ACCESS_TOKEN }}
         release-tag: ${{ needs.prepare.outputs.version }}
 
-    # - name: Upload package to pypi
-    #   uses: pypa/gh-action-pypi-publish@v1.8.3
-    #   with:
-    #     user: __token__
-    #     password: ${{ secrets.PYPI_API_TOKEN }}
-    #     packages_dir: '${{ env.ROOT_DIR }}/dist/'
+    - name: Upload package to pypi
+      uses: pypa/gh-action-pypi-publish@v1.8.3
+      with:
+        user: __token__
+        password: ${{ secrets.PYPI_API_TOKEN }}
+        packages_dir: '${{ env.ROOT_DIR }}/dist/'
 
   # update-dockerfiles:
   #   name: Create pull request to update dockerfiles
