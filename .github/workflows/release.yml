@@ -54,10 +54,6 @@ jobs:
     - name: Build
       run: |
         make build-${{ matrix.package }} version=${{ needs.prepare.outputs.version }} PYTHON=python
-        echo ""
-        ls .
-        echo ""
-        ls dist/*
 
     - name: Upload release assets
       run: |
