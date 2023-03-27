@@ -46,8 +46,7 @@ jobs:
 
     - name: Build
       run: |
-        echo "${{ needs.prepare.outputs.version }}" > VERSION
-        make build-core PYTHON=python
+        make build-core version=${{ needs.prepare.outputs.version }} PYTHON=python
 
     - name: Upload release assets
       uses: AButler/upload-release-assets@v2.0
@@ -87,8 +86,7 @@ jobs:
 
     - name: Build
       run: |
-        echo "${{ needs.prepare.outputs.version }}" > VERSION
-        make build-datascience PYTHON=python
+        make build-datascience version=${{ needs.prepare.outputs.version }} PYTHON=python
 
     - name: Upload release assets
       uses: AButler/upload-release-assets@v2.0
