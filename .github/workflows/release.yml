@@ -12,7 +12,7 @@ on:
 jobs:
   prepare:
     name: Prepare
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     outputs:
       version: ${{ steps.version.outputs.value }}
@@ -25,7 +25,7 @@ jobs:
 
   build-packages:
     name: Build ${{ matrix.package }} package
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     strategy:
       matrix:
@@ -68,7 +68,7 @@ jobs:
 
   # update-dockerfiles:
   #   name: Create pull request to update dockerfiles
-  #   runs-on: ubuntu-20.04
+  #   runs-on: ubuntu-22.04
 
   #   needs:
   #   - prepare
@@ -117,7 +117,7 @@ jobs:
 
   # update-integration-tool:
   #   name: Create pull request to update integration tool
-  #   runs-on: ubuntu-20.04
+  #   runs-on: ubuntu-22.04
 
   #   needs:
   #   - prepare
