@@ -19,9 +19,12 @@ class FabricError(Exception):
   def __init__(
       self,
       context: Optional[dict[str, str]] = None,
+      description: Optional[str] = None,
       http_code: Optional[int] = None,
       name: Optional[str] = None):
     self.context = context
+    if description:
+      self.description = description
     if http_code:
       self.http_code = http_code
     self.name = name
