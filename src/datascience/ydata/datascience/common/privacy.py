@@ -1,13 +1,13 @@
-from enum import Enum, auto
+from ydata.core.enum import StringEnum
 
 
-class PrivacyLevel(Enum):
+class PrivacyLevel(StringEnum):
     """Privacy level exposed to the end-user."""
-    HIGH_FIDELITY = auto()
+    HIGH_FIDELITY = "HIGH_FIDELITY"
     """High fidelity"""
-    HIGH_PRIVACY = auto()
+    HIGH_PRIVACY = "HIGH_PRIVACY"
     """High privacy"""
-    BALANCED_PRIVACY_FIDELITY = auto()
+    BALANCED_PRIVACY_FIDELITY = "BALANCED_PRIVACY_FIDELITY"
     """Balanced privacy/fidelity"""
 
     def __str__(self):
