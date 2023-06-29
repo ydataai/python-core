@@ -26,5 +26,8 @@ class StringEnum(Enum):
 
     return None
 
+  def __hash__(self) -> int:
+    return hash(self.value)
+
   def __eq__(self, other: object) -> bool:
     return self.value == other.value
