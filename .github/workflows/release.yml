@@ -53,7 +53,7 @@ jobs:
         make build-${{ matrix.package }} version=${{ needs.prepare.outputs.version }} PYTHON=python
 
     - name: Upload release assets
-      uses: AButler/upload-release-assets@v2.0
+      uses: AButler/upload-release-assets@v3.0
       with:
         files: '${{ env.ROOT_DIR }}/dist/*'
         repo-token: ${{ secrets.ACCESS_TOKEN }}
