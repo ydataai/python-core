@@ -8,7 +8,7 @@ def _camelcased(value: str) -> str:
   return capitalized[0].lower() + capitalized[1:]
 
 
-# pylint: disable=too-many-arguments
+# pylint: disable=too-many-arguments, import-outside-toplevel
 class FabricError(Exception):
   context: dict[str, str] | None
   description: str
@@ -43,14 +43,16 @@ class FabricError(Exception):
       "return_value": self.return_value
     }.items()
 
-  def __str__(self) -> str:
-    return f'''
-      {self.__class__.__name__}(name={self.name}, context={self.context}, description={self.description}, \
-http_code={self.http_code}, return_value={self.return_value})
-    '''
-
   def __repr__(self) -> str:
-    return self.__str__()
+    from pprint import pformat
+    return f"{self.__class__.__name__}(\n{pformat(dict(self), width=120, sort_dicts=False)}\n)"
+
+  def __str__(self) -> str:
+    from pprint import pformat
+    string = f"{self.name} - {self.description}"
+    if self.context:
+      string += f"\ncontext: {pformat(self.context, width=160, sort_dicts=False)}"
+    return string
 
   def __sizeof__(self) -> int:
     context_size = getsizeof(self.context) if self.context else 0
