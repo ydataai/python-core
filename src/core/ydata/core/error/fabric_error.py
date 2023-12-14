@@ -29,10 +29,10 @@ class FabricError(Exception):
 
     if description:
       self.description = description
-    if http_code or kwargs['httpCode']:
-      self.http_code = http_code or kwargs['httpCode']
-    if return_value or kwargs['returnValue']:
-      self.return_value = return_value or kwargs['returnValue']
+    if http_code or kwargs.get('httpCode', None):
+      self.http_code = http_code or kwargs.get('httpCode', None)
+    if return_value or kwargs.get('returnValue', None):
+      self.return_value = return_value or kwargs.get('returnValue', None)
 
   def __iter__(self):
     yield from {
