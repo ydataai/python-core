@@ -1,6 +1,5 @@
 from __future__ import annotations
 import json
-from typing import Optional
 from sys import getsizeof
 
 
@@ -9,25 +8,31 @@ def _camelcased(value: str) -> str:
   return capitalized[0].lower() + capitalized[1:]
 
 
+# pylint: disable=too-many-arguments
 class FabricError(Exception):
-  context: Optional[dict[str, str]]
+  context: dict[str, str] | None
   description: str
   http_code: int = 500
-  name: Optional[str]
+  name: str | None
   return_value: int
 
   def __init__(
       self,
-      context: Optional[dict[str, str]] = None,
-      description: Optional[str] = None,
-      http_code: Optional[int] = None,
-      name: Optional[str] = None):
+      context: dict[str, str] | None = None,
+      description: str | None = None,
+      http_code: int | None = None,
+      name: str = None,
+      return_value: int | None = None,
+      **kwargs):
     self.context = context
+    self.name = name
+
     if description:
       self.description = description
-    if http_code:
-      self.http_code = http_code
-    self.name = name
+    if http_code or kwargs['httpCode']:
+      self.http_code = http_code or kwargs['httpCode']
+    if return_value or kwargs['returnValue']:
+      self.return_value = return_value or kwargs['returnValue']
 
   def __iter__(self):
     yield from {
