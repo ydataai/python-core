@@ -18,6 +18,7 @@ endif
 venv3: ### Creates a virtual environment for this project
 	test -d $(VENV) || python3.8 -m venv $(VENV)
 	$(PIP) install --upgrade pip wheel setuptools twine
+	$(PIP) install -r requirements.txt
 	$(PIP) install -r requirements-dev.txt
 
 clean: clean-build clean-pyc ### Cleans artifacts
