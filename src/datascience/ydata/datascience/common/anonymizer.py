@@ -3,6 +3,7 @@
 """
 from enum import Enum
 
+
 class AnonymizerType(Enum):
   REGEX = 1
   IP = 2
@@ -63,12 +64,15 @@ class AnonymizerType(Enum):
     Returns:
         AnonymizerType: A
     """
+
     if isinstance(name, AnonymizerType):
       return name
-    elif isinstance(name, str):
+
+    if isinstance(name, str):
       if name.upper() in AnonymizerType._member_names_:
         return AnonymizerType[name.upper()]
       else:
-        return None
-    elif isinstance(name, int):
+        return
+
+    if isinstance(name, int):
       return AnonymizerType(name)
