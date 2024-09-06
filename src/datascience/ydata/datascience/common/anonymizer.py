@@ -52,7 +52,7 @@ class AnonymizerType(Enum):
   UUID = 45
 
   @staticmethod
-  def get_anonymizer_type(name) -> "AnonymizerType":
+  def get_anonymizer_type(name):
     """Helper function that receives the anonymizer type either as
     AnonymizerType or its int or string representations and returns the
     anonymizer type. e.g. AnonymizerType.NAME can also be represented by the
