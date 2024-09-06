@@ -72,7 +72,7 @@ class AnonymizerType(Enum):
       if name.upper() in AnonymizerType._member_names_:
         return AnonymizerType[name.upper()]
       else:
-        return
+        return None
 
     if isinstance(name, int):
       return AnonymizerType(name)
